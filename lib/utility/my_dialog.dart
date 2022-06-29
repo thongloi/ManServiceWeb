@@ -10,8 +10,12 @@ class MyDialog {
     required this.context,
   });
 
-  Future<void> normalDialog(
-      {required String title, required String subTitle}) async {
+  Future<void> normalDialog({
+    required String title,
+    required String subTitle,
+    String? label,
+    Function()? pressFunc,
+  }) async {
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -27,12 +31,14 @@ class MyDialog {
           subtitle: ShowText(text: subTitle),
         ),
         actions: [
-          ShowTextButton(
-            label: 'OK',
-            pressFunc: () {
-              Navigator.pop(context);
-            },
-          )
+          label == null
+              ? ShowTextButton(
+                  label: 'OK',
+                  pressFunc: () {
+                    Navigator.pop(context);
+                  },
+                )
+              : ShowTextButton(label: label, pressFunc: pressFunc!),
         ],
       ),
     );
