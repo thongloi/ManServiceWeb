@@ -44,10 +44,28 @@ class MyConstant {
     );
   }
 
+  TextStyle h2WhiteStyle() {
+    return const TextStyle(
+      fontSize: 20,
+      color: Colors.white,
+      fontWeight: FontWeight.w700,
+      fontFamily: 'Prompt',
+    );
+  }
+
   TextStyle h3Style() {
     return TextStyle(
       fontSize: 16,
       color: dark,
+      fontWeight: FontWeight.normal,
+      fontFamily: 'Prompt',
+    );
+  }
+
+  TextStyle h3WhiteStyle() {
+    return const TextStyle(
+      fontSize: 16,
+      color: Colors.white,
       fontWeight: FontWeight.normal,
       fontFamily: 'Prompt',
     );

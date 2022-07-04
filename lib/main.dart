@@ -1,12 +1,32 @@
 import 'dart:io';
 
 import 'package:esmserviceweb/states/authen.dart';
+import 'package:esmserviceweb/states/my_service.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+final Map<String, WidgetBuilder> map = {
+  '/authen': (context) => const Authen(),
+  '/myService': (context) => const MyService()
+};
+
+String? firstState;
+
+Future<void> main() async {
   HttpOverrides.global = MyHttpOverride();
 
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  var result = preferences.getString('data');
+  print('result ===>>> $result');
+
+  if (result == null) {
+    firstState = '/authen';
+    runApp(MyApp());
+  } else {
+    firstState = '/myService';
+    runApp(MyApp());
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -15,7 +35,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Authen(),
+      routes: map,
+      initialRoute: firstState ?? '/authen',
     );
   }
 }

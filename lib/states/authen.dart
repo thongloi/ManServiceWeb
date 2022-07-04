@@ -10,6 +10,7 @@ import 'package:esmserviceweb/widgets/show_form.dart';
 import 'package:esmserviceweb/widgets/show_image.dart';
 import 'package:esmserviceweb/widgets/show_text.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Authen extends StatefulWidget {
   const Authen({Key? key}) : super(key: key);
@@ -136,7 +137,7 @@ class _AuthenState extends State<Authen> {
   Future<void> processCheckAuthen() async {
     String path =
         'https://www.androidthai.in.th/egat/checkLoginMan.php?isAdd=true&user=$user';
-    await Dio().get(path).then((value) {
+    await Dio().get(path).then((value) async {
       print('## value ==> $value');
 
       if (value.toString() == 'null') {
@@ -148,6 +149,10 @@ class _AuthenState extends State<Authen> {
         for (var element in result) {
           UserModel userModel = UserModel.fromMap(element);
           if (password == userModel.password) {
+            SharedPreferences preferences =
+                await SharedPreferences.getInstance();
+            preferences.setString('data', userModel.name);
+
             MyDialog(context: context).normalDialog(
                 pressFunc: () {
                   Navigator.pushAndRemoveUntil(
