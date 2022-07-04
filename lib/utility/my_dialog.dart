@@ -10,12 +10,13 @@ class MyDialog {
     required this.context,
   });
 
-  Future<void> normalDialog({
-    required String title,
-    required String subTitle,
-    String? label,
-    Function()? pressFunc,
-  }) async {
+  Future<void> normalDialog(
+      {required String title,
+      required String subTitle,
+      String? label,
+      Function()? pressFunc,
+      String? label2,
+      Function()? pressFunc2}) async {
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -39,6 +40,9 @@ class MyDialog {
                   },
                 )
               : ShowTextButton(label: label, pressFunc: pressFunc!),
+          label2 == null
+              ? const SizedBox()
+              : ShowTextButton(label: label2, pressFunc: pressFunc2!),
         ],
       ),
     );
