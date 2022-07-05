@@ -1,3 +1,4 @@
+import 'package:esmserviceweb/bodys/list_photo.dart';
 import 'package:esmserviceweb/bodys/take_photo.dart';
 import 'package:esmserviceweb/bodys/web_service.dart';
 import 'package:esmserviceweb/utility/my_constant.dart';
@@ -20,12 +21,14 @@ class _MyServiceState extends State<MyService> {
   var bodys = <Widget>[
     const WebService(),
     const TakePhoto(),
+    const ListPhoto(),
   ];
   int indexBody = 0;
 
   var titles = <String>[
     'Web Service',
     'Take Photo',
+    'List All Photo',
   ];
 
   @override
@@ -87,11 +90,24 @@ class _MyServiceState extends State<MyService> {
           ),
           ShowMenu(
             iconData: Icons.add_a_photo_outlined,
-            title: 'Take Photo',
+            title: 'Take รูปภาพ',
             pressFunc: () {
               Navigator.pop(context);
               setState(() {
                 indexBody = 1;
+              });
+            },
+          ),
+          Divider(
+            color: MyConstant.dark,
+          ),
+          ShowMenu(
+            iconData: Icons.list,
+            title: titles[2],
+            pressFunc: () {
+              Navigator.pop(context);
+              setState(() {
+                indexBody = 2;
               });
             },
           ),
